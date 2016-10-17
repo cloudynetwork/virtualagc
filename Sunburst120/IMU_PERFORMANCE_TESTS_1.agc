@@ -64,3 +64,57 @@ POSLOAD         CAF             V24N30E                         # R1 0000X ENTER
 
 ## Page 381
 
+                TCF             ENDTEST
+
+                TC              FINDNAVB                        # FINE ALIGN MARKS
+
+                TC              FREEDSP                         # FREE DISPLAY SYSTEM
+
+                TC              SMDCALC                         # TO FINE ALIGN STABLE MEMBER
+
+ERFINAL         TC              BANKCALL                        # LAST EARTH RATE SHOT
+                CADR            EARTHR
+                CCS             EROPTN                          # IF DESIRED TO COMPENSATE CONTINUALLY
+                TCF             MONSTART                        #       CHANGE BY V21 N02 E XXXXX E 00000 E
+                TCF             ERFINAL
+                TCF             ENDTEST
+                TS              EROPTN
+                INHINT
+                CAF             PRIO21                          # PRIORITY 1 HIGHER THAN SXTNBIMU
+                TC              FINDVAC
+                EBANK=          XSM
+                2CADR           RDR37511
+
+                RELINT
+                TC              ERFINAL
+
+MONSTART        TC              FINETIME                        # TIME AT INITIAL MISALIGNMENT
+                DXCH            MPAC
+                RELINT
+                CAF             ZERO                            # ZERO PIPA COUNTERS
+                TS              PIPAX               
+                TS              PIPAY
+                TS              PIPAZ
+                TS              STOREPL
+                TS              NDXCTR
+                TC              STORRSLT                        # STORE T(INITIAL) AND PIPAI = 0
+
+                INHINT
+                CAF             60SEC                           # INSURE PIPAI VARIES IN ONE DIRECTION
+                TC              WAITLIST
+                EBANK=          XSM
+                2CADR           PIP1
+
+                CAF             PIP2ADR
+                TC              JOBSLEEP
+
+PIP1            CAF             PIP2ADR
+                TC              JOBWAKE
+                TC              TASKOVER
+
+PIP2            CAE             PIPNDX
+                TS              PIPINDEX                        # POS1 PIPAY    POS2 PIPAX      POS3 PIPAX ## Possible typo in orig comment would expect PIPAZ here too.
+
+## Page 382
+
+
